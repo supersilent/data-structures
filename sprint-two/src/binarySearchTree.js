@@ -3,7 +3,6 @@ var BinarySearchTree = function(value) {
   newTree.value = value;
   newTree.left = null;
   newTree.right = null;
-  newTree.childrenLength = 0;
   Object.assign(newTree, treeMethods);
   return newTree;
 };
@@ -11,28 +10,25 @@ var BinarySearchTree = function(value) {
 var treeMethods = {};
 
 treeMethods.insert = function(value) {
-  var node = BinarySearchTree(value);
-  //intial case if (___);
-  
-  var goLeftOrRight = function (node) {
-    if (value > !node.value){
-      let direction = node.right;
-    } else if (value < !node.value){
-      let direction = node.left;
-    } else {
-      return 0;
-    }
+  node = BinarySearchTree(value);
 
-    if (!direction) {
-      direction = BinarySearchTree(value); //this.right = node]\
-    } else {
-      goleftOrRight(direction);
+  var goLeftOrRight = function (node) {
+    if (value > node.value) {
+      if (!node.right) {
+        node.right = BinarySearchTree(value);
+      } else {
+        goLeftOrRight(node.right);
+      }
+    } else if (value < node.value) {
+      if (!node.left) {
+        node.left = BinarySearchTree(value);
+      } else {
+        goLeftOrRight(node.left);
+      }
     }
-  }
-  goLeftOrRight(this);
+  };
   
-  // this.children.push(node);
-  // this.childrenLength++;
+  goLeftOrRight(this);
 };
 
 treeMethods.contains = function(target) {
@@ -40,17 +36,37 @@ treeMethods.contains = function(target) {
     if (node.value === target) {
       return true;
     }
-    if (node.childrenLength > 0) { // if (node.childrenLength > 0) {
-      for (var e of node.children) {
-        if (findNum(e)) {
-          return true;
-        }
-      // return findNum(e);
-      }    
+
+    if (node.value) {
+      if (node.value > target) {
+        if (node.left) { return findNum(node.left); }
+        
+      } else {
+        if (node.right) {return findNum(node.right);}        
+      }
     }
     return false;
   };
-}
+
+  return findNum(this);
+};
+
+treeMethods.depthFirstLog = function(callback) {
+  let result = [];
+  let getElements = function(node) {
+    if (node.value) {
+      result.push(node.value);
+
+      if (node.left) {getElements(node.left); }
+      if (node.right) {getElements(node.right);}        
+    }
+  };
+
+  getElements(this);
+  
+
+  return result.map(x => callback(x));
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?
