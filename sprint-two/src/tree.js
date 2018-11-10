@@ -3,9 +3,7 @@ var Tree = function(value) {
   newTree.value = value;
   newTree.children = [];
   newTree.childrenLength = 0;
-  Object.assign(newTree, treeMethods);
-  
- 
+  Object.assign(newTree, treeMethods); 
   return newTree;
 };
 

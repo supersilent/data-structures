@@ -1,15 +1,15 @@
 var BinarySearchTree = function(value) {
-  var newTree = {};
-  newTree.value = value;
-  newTree.left = null;
-  newTree.right = null;
-  Object.assign(newTree, treeMethods);
-  return newTree;
+  var newBinaryTree = {};
+  newBinaryTree.value = value;
+  newBinaryTree.left = null;
+  newBinaryTree.right = null;
+  Object.assign(newBinaryTree, bstreeMethods);
+  return newBinaryTree;
 };
 
-var treeMethods = {};
+var bstreeMethods = {};
 
-treeMethods.insert = function(value) {
+bstreeMethods.insert = function(value) {
   node = BinarySearchTree(value);
 
   var goLeftOrRight = function (node) {
@@ -31,7 +31,7 @@ treeMethods.insert = function(value) {
   goLeftOrRight(this);
 };
 
-treeMethods.contains = function(target) {
+bstreeMethods.contains = function(target) {
   let findNum = function(node) {
     if (node.value === target) {
       return true;
@@ -51,7 +51,7 @@ treeMethods.contains = function(target) {
   return findNum(this);
 };
 
-treeMethods.depthFirstLog = function(callback) {
+bstreeMethods.depthFirstLog = function(callback) {
   let result = [];
   let getElements = function(node) {
     if (node.value) {
